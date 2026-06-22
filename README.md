@@ -55,20 +55,27 @@ A sample game on **Normal** difficulty (secret = 73, visible in the Developer De
 
 ## 🧪 Test Results
 
+Includes the **Challenge 1** advanced edge-case suite (negative numbers, decimals, extremely large values, non-numeric and empty input):
+
 ```
 $ python -m pytest tests/ -v
 ============================= test session starts ==============================
 platform darwin -- Python 3.14.0, pytest-9.1.1, pluggy-1.6.0
-collected 6 items
+collected 11 items
 
-tests/test_game_logic.py::test_winning_guess PASSED                      [ 16%]
-tests/test_game_logic.py::test_guess_too_high PASSED                     [ 33%]
-tests/test_game_logic.py::test_guess_too_low PASSED                      [ 50%]
-tests/test_game_logic.py::test_hint_message_not_backwards PASSED         [ 66%]
-tests/test_game_logic.py::test_check_guess_handles_string_secret PASSED  [ 83%]
-tests/test_game_logic.py::test_score_never_goes_negative PASSED          [100%]
+tests/test_game_logic.py::test_winning_guess PASSED                      [  9%]
+tests/test_game_logic.py::test_guess_too_high PASSED                     [ 18%]
+tests/test_game_logic.py::test_guess_too_low PASSED                      [ 27%]
+tests/test_game_logic.py::test_hint_message_not_backwards PASSED         [ 36%]
+tests/test_game_logic.py::test_check_guess_handles_string_secret PASSED  [ 45%]
+tests/test_game_logic.py::test_score_never_goes_negative PASSED          [ 54%]
+tests/test_game_logic.py::test_negative_number_is_handled_gracefully PASSED [ 63%]
+tests/test_game_logic.py::test_decimal_input_is_truncated PASSED         [ 72%]
+tests/test_game_logic.py::test_extremely_large_value_does_not_overflow PASSED [ 81%]
+tests/test_game_logic.py::test_non_numeric_input_is_rejected PASSED      [ 90%]
+tests/test_game_logic.py::test_empty_input_is_rejected PASSED            [100%]
 
-============================== 6 passed in 0.01s ===============================
+============================== 11 passed in 0.02s ==============================
 ```
 
 ## 🚀 Stretch Features

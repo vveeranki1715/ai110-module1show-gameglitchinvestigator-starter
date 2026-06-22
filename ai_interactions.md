@@ -26,11 +26,29 @@
 
 > Document how you used AI to help generate or improve tests.
 
+**Prompts used:**
+
+```
+"Look at parse_guess and check_guess in logic_utils.py. Identify three edge-case
+inputs (e.g. negative numbers, decimals, extremely large values) that could still
+break the game, and generate a pytest suite that verifies each one is handled
+gracefully without raising."
+```
+
+```
+"Also add edge cases for clearly invalid input — non-numeric text and an empty
+string — and assert the exact error message instead of just that it failed."
+```
+
 | Edge Case | Prompt Used | AI-Suggested Test | Did It Pass? | Your Reasoning |
 |-----------|-------------|-------------------|--------------|----------------|
-| | | | | |
-| | | | | |
-| | | | | |
+| Negative number (`-5`) | Prompt 1 | `test_negative_number_is_handled_gracefully` | ✅ | A `-` sign could break naive parsing; confirms negatives parse and compare correctly. |
+| Decimal (`40.9`) | Prompt 1 | `test_decimal_input_is_truncated` | ✅ | Users may type decimals; verifies they truncate to an int instead of crashing. |
+| Extremely large value (`1000000000000`) | Prompt 1 | `test_extremely_large_value_does_not_overflow` | ✅ | Huge inputs overflow in some languages; confirms Python ints handle it with no error. |
+| Non-numeric text (`abc`) | Prompt 2 | `test_non_numeric_input_is_rejected` | ✅ | Garbage input must return a friendly error, not raise; locks the exact message. |
+| Empty string (`""`) | Prompt 2 | `test_empty_input_is_rejected` | ✅ | Submitting nothing should prompt "Enter a guess."; distinguishes "empty" from "invalid". |
+
+All five edge-case tests pass (`11 passed` total). The AI's suggested test bodies were correct; I verified each by running `pytest -v` and by manually tracing the inputs through `parse_guess`/`check_guess`.
 
 ---
 
