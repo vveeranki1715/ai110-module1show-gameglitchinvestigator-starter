@@ -46,13 +46,12 @@ The string-secret test was the most useful: it failed with a `TypeError` until I
 
 ## 4. What did you learn about Streamlit and state?
 
-- How would you explain Streamlit "reruns" and session state to a friend who has never used Streamlit?
+I'd explain it like this: every time you interact with a Streamlit app — click a button, type in a box — Streamlit *re-runs your entire script from top to bottom*, like refreshing a page. So any normal variable you create gets thrown away and recreated on every interaction. That's why the secret number would "change its mind": if you generate it as a plain variable, a new random number is picked on every rerun. `st.session_state` is the fix — it's a dictionary that *survives* reruns, so you store things you want to remember (the secret, the score, attempts) there and guard them with `if "secret" not in st.session_state` so they're only initialized once. Understanding this made the `st.rerun()` call after "New Game" make sense: it deliberately forces a fresh run so the reset state shows up.
 
 ---
 
 ## 5. Looking ahead: your developer habits
 
-- What is one habit or strategy from this project that you want to reuse in future labs or projects?
-  - This could be a testing habit, a prompting strategy, or a way you used Git.
-- What is one thing you would do differently next time you work with AI on a coding task?
-- In one or two sentences, describe how this project changed the way you think about AI generated code.
+- **Habit I'll reuse:** Writing a failing test *before* accepting a fix. The string-secret bug taught me that a test is the only thing that actually proves a fix works — it forced me to fix the real logic instead of hiding the error in a `try/except`. I also want to keep committing in small, labeled steps rather than one big dump at the end.
+- **What I'd do differently:** I'd give the AI tighter, more specific prompts up front (and attach the related files immediately) instead of asking broad "fix this" questions. The more context and constraints I gave it, the better its suggestions were.
+- **How this changed my thinking:** AI-generated code can look polished and "production-ready" while being subtly broken, so I now treat every AI suggestion as a draft to verify — with tests and by reading the diff — rather than something to trust on sight.
